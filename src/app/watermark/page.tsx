@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent } from "protected"; // ※実際のインポートはそのまま
+import { useState, ChangeEvent } from "react";
 import Link from "next/link";
 import JSZip from "jszip";
 import { applyWatermark, WatermarkOptions } from "@/utils/watermark";
@@ -14,7 +14,6 @@ interface ProcessedImage {
 }
 
 export default function WatermarkStudioPage() {
-  // 初期値を汎用的なプレースホルダーに変更
   const [watermarkText, setWatermarkText] = useState("© YourName");
   const [fontSize, setFontSize] = useState(32);
   const [opacity, setOpacity] = useState(0.4);
@@ -24,7 +23,6 @@ export default function WatermarkStudioPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
 
-  // 3種類の便利なプリセット定義
   const presets = [
     { label: "©️ Copyright", value: "© YourName" },
     { label: "🎨 Handle / ID", value: "@YourHandle" },
@@ -105,7 +103,6 @@ export default function WatermarkStudioPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"[cite: 11]>
           
-          {/* 左側：設定パネル */}
           <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col gap-6 h-fit"[cite: 11]>
             <h2 className="text-lg font-bold text-white border-b border-slate-800 pb-3"[cite: 11]>⚙️ 設定パネル</h2>
             
@@ -118,7 +115,6 @@ export default function WatermarkStudioPage() {
                 className="px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-indigo-500"[cite: 11]
               />
               
-              {/* ✨ 3種類のクイックプリセットボタン */}
               <div className="flex flex-wrap gap-1.5 mt-2">
                 <span className="text-[10px] text-slate-400 w-full mb-0.5">クイックプリセット:</span>
                 {presets.map((p, idx) => (
@@ -159,7 +155,6 @@ export default function WatermarkStudioPage() {
             )}
           </div>
 
-          {/* 右側：プレビューギャラリー */}
           <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl min-h-[450px]"[cite: 11]>
             <h2 className="text-lg font-bold text-white mb-4"[cite: 11]>🖼️ プレビュー一覧 ｜ Preview ({images.length}件)</h2>
             
