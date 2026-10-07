@@ -5,10 +5,14 @@ import Link, { LinkProps } from "next/link";
 import { AnchorHTMLAttributes } from "react";
 import { playClickSound, playHoverSound } from "@/utils/sound";
 
-type SoundLinkProps = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement> & {
-  children: React.ReactNode;
-  className?: string;
-};
+// Next.jsのLinkPropsと通常のHTMLアンカータグの属性を安全に統合
+type SoundLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
+  LinkProps & {
+    children: React.ReactNode;
+    className?: string;
+    target?: string;
+    rel?: string;
+  };
 
 export default function SoundLink({ href, children, onClick, onMouseEnter, ...props }: SoundLinkProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
