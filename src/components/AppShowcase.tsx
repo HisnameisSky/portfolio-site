@@ -23,7 +23,7 @@ const projects = [
   },
   {
     id: "ai-protection-cloud",
-    title: "AI Protection Pro Studio",
+    title: "AI Protection Pro Studio (Web)",
     description: (
       <>
         AIによるスクレイピングやプロンプトインジェクションからアセットを守るための保護スタジオアプリ。
