@@ -13,22 +13,21 @@ export default function Header() {
           澄界 ｜ Hisnameissky<span className="text-indigo-500">.</span>
         </Link>
 
-        {/* ナビゲーションメニュー */}
+        {/* ナビゲーションメニュー（グラデーションホバー効果を適用） */}
         <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <Link href="/#about" className="hover:text-white transition-colors py-2">
+          <Link href="/#about" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-400 hover:to-purple-400 transition-all py-2">
             About
           </Link>
-          <Link href="/#artworks" className="hover:text-white transition-colors py-2">
+          <Link href="/#artworks" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-400 hover:to-purple-400 transition-all py-2">
             Artworks
           </Link>
-          <Link href="/#projects" className="hover:text-white transition-colors py-2">
+          <Link href="/#projects" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-400 hover:to-purple-400 transition-all py-2">
             Projects
           </Link>
-          {/* ✨ ここにウォーターマークスタジオへのアクセスリンクを追加 */}
-          <Link href="/watermark" className="text-indigo-400 hover:text-indigo-300 transition-colors py-2 font-semibold">
+          <Link href="/watermark" className="text-indigo-400 hover:text-indigo-300 transition-colors py-2 font-semibold hover:underline">
             🛡️ Watermark Studio
           </Link>
-          <Link href="/#contact" className="hover:text-white transition-colors py-2">
+          <Link href="/#contact" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-400 hover:to-purple-400 transition-all py-2">
             Contact
           </Link>
         </nav>
