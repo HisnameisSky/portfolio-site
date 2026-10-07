@@ -26,9 +26,18 @@ export default function PreviewGrid({
 }: PreviewGridProps) {
   return (
     <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl min-h-[450px] flex flex-col">
-      <h2 className="text-lg font-bold text-white mb-4">
-        🖼️ プレビュー一覧 ｜ Preview ({images.length}件)
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-white">
+          🖼️ プレビュー一覧 ｜ Preview ({images.length}件)
+        </h2>
+        {images.length > 0 && (
+          <span className="text-xs text-slate-400">
+            画像ごとに個別ダウンロードや撤回が可能です
+            <br />
+            You can download or remove each image individually.
+          </span>
+        )}
+      </div>
       
       {images.length === 0 ? (
         <DropZone onFileChange={onFileChange} isProcessing={isProcessing} />
@@ -37,25 +46,32 @@ export default function PreviewGrid({
           {images.map((img: ProcessedImage) => (
             <div 
               key={img.id} 
-              className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md"
+              className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md flex flex-col"
             >
+              {/* プレビュー画像本体 */}
               <img src={img.previewSrc} alt={img.name} className="w-full h-full object-cover select-none" />
               
-              {/* ホバー時に個別ダウンロードと「撤回（削除）」ボタンを表示 */}
-              <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
+              {/* 右上に常時配置する「撤回（削除）」ボタン */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemove(img.id);
+                }}
+                className="absolute top-2 right-2 w-8 h-8 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-xs font-bold shadow-lg transition-transform hover:scale-110 z-10"
+                title="この選択を撤回（削除）"
+              >
+                ✕
+              </button>
+
+              {/* 下部に配置する個別ダウンロードボタン */}
+              <div className="absolute bottom-2 inset-x-2">
                 <a 
                   href={img.previewSrc} 
                   download={img.name} 
-                  className="w-full py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
+                  className="block w-full py-1.5 bg-slate-900/90 hover:bg-indigo-600 text-slate-200 hover:text-white text-xs rounded-lg font-medium text-center shadow border border-slate-700 transition-colors"
                 >
-                  個別ダウンロード｜Download individualy
+                  個別ダウンロード｜Individual Downloads
                 </a>
-                <button
-                  onClick={() => onRemove(img.id)}
-                  className="w-full py-1.5 bg-rose-600/80 hover:bg-rose-600 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
-                >
-                  ✕ 選択を撤回｜Revoke selection
-                </button>
               </div>
             </div>
           ))}
