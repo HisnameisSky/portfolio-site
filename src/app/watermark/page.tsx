@@ -1,72 +1,93 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect, useRef } from "react";
 import Link from "next/link";
 import JSZip from "jszip";
 import { applyWatermark, WatermarkOptions } from "@/utils/watermark";
-
-interface ProcessedImage {
-  id: string;
-  name: string;
-  originalSrc: string;
-  previewSrc: string;
-  blob?: Blob;
-}
-
-interface PresetItem {
-  label: string;
-  value: string;
-}
+import ControlPanel from "./components/ControlPanel";
+import PreviewGrid, { ProcessedImage } from "./components/PreviewGrid";
 
 export default function WatermarkStudioPage() {
-  const [watermarkText, setWatermarkText] = useState<string>("© YourName");
-  const [fontSize, setFontSize] = useState<number>(32);
-  const [opacity, setOpacity] = useState<number>(0.4);
-  const [angle, setAngle] = useState<number>(-30);
-  
+  const [options, setOptions] = useState<WatermarkOptions>({
+    text: "© YourName",
+    fontSize: 32,
+    color: "#ffffff",
+    opacity: 0.4,
+    angle: -30,
+  });
+
   const [images, setImages] = useState<ProcessedImage[]>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isZipping, setIsZipping] = useState<boolean>(false);
 
-  const presets: PresetItem[] = [
-    { label: "©️ Copyright", value: "© YourName" },
-    { label: "🎨 Handle / ID", value: "@YourHandle" },
-    { label: "🛡️ AI Protected", value: "DO NOT AI SCRAPE" },
-  ];
+  // 元画像のデータを保持しておくための参照（再計算用）
+  const rawFilesRef = useRef<{ id: string; file: File; originalSrc: string; name: string }[]>([]);
 
-  // 画像ファイルが選択されたときの処理（最新の watermarkText を確実に反映）
+  // 設定（テキストや不透明度）が変更されたら、既存の画像プレビューを自動で再計算して更新する
+  useEffect(() => {
+    if (rawFilesRef.current.length === 0) return;
+
+    const recomputeImages = async () => {
+      setIsProcessing(true);
+      const updatedImages: ProcessedImage[] = [];
+
+      for (const item of rawFilesRef.current) {
+        try {
+          const previewSrc: string = await applyWatermark(item.originalSrc, options);
+          const res: Response = await fetch(previewSrc);
+          const blob: Blob = await res.blob();
+
+          updatedImages.push({
+            id: item.id,
+            name: item.name,
+            originalSrc: item.originalSrc,
+            previewSrc,
+            blob,
+          });
+        } catch (err) {
+          console.error("Recompute error:", err);
+        }
+      }
+
+      setImages(updatedImages);
+      setIsProcessing(false);
+    };
+
+    // 軽いデボンスを効かせてカクつきを防ぐ
+    const timer = setTimeout(() => {
+      recomputeImages();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [options]);
+
+  const handleOptionsChange = (newOpts: Partial<WatermarkOptions>) => {
+    setOptions((prev) => ({ ...prev, ...newOpts }));
+  };
+
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     if (!e.target.files || e.target.files.length === 0) return;
     setIsProcessing(true);
 
     const filesArray: File[] = Array.from(e.target.files);
-    const newImages: ProcessedImage[] = [];
-
-    // この瞬間の最新 state をローカル変数にコピーして渡す
-    const currentText = watermarkText;
-    const currentOpacity = opacity;
-    const currentAngle = angle;
-    const currentFontSize = fontSize;
-
-    const currentOptions: WatermarkOptions = { 
-      text: currentText, 
-      fontSize: currentFontSize, 
-      color: "#ffffff", 
-      opacity: currentOpacity, 
-      angle: currentAngle 
-    };
+    const newProcessedImages: ProcessedImage[] = [];
 
     for (const file of filesArray) {
+      const id = Math.random().toString(36).substring(2);
       const originalSrc: string = URL.createObjectURL(file);
-      
+      const name = file.name.replace(/\.[^/.]+$/, "") + "_watermarked.webp";
+
+      // 内部参照用に保持
+      rawFilesRef.current.push({ id, file, originalSrc, name });
+
       try {
-        const previewSrc: string = await applyWatermark(originalSrc, currentOptions);
+        const previewSrc: string = await applyWatermark(originalSrc, options);
         const res: Response = await fetch(previewSrc);
         const blob: Blob = await res.blob();
 
-        newImages.push({
-          id: Math.random().toString(36).substring(2),
-          name: file.name.replace(/\.[^/.]+$/, "") + "_watermarked.webp",
+        newProcessedImages.push({
+          id,
+          name,
           originalSrc,
           previewSrc,
           blob,
@@ -76,15 +97,14 @@ export default function WatermarkStudioPage() {
       }
     }
 
-    setImages((prev: ProcessedImage[]) => [...prev, ...newImages]);
+    setImages((prev: ProcessedImage[]) => [...prev, ...newProcessedImages]);
     setIsProcessing(false);
-    
-    // 同じファイルを続けて選択できるようにinputをクリア
     e.target.value = "";
   };
 
-  // 個別画像の撤回（削除）機能
+  // 選択画像の撤回（削除）
   const handleRemoveImage = (id: string) => {
+    rawFilesRef.current = rawFilesRef.current.filter((item) => item.id !== id);
     setImages((prev: ProcessedImage[]) => {
       const target = prev.find((img) => img.id === id);
       if (target) {
@@ -128,105 +148,32 @@ export default function WatermarkStudioPage() {
             </h1>
             <p className="text-slate-400 text-sm mt-1">
               ブラウザ上だけで安全にイラストへウォーターマークを焼き込み、一括保護します。
+              <br />
+              Safely embed watermarks into your illustrations and protect them in bulk—all within your browser.
             </p>
           </div>
           <Link href="/" className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sm font-medium transition-colors">
-            &larr; ポートフォリオに戻る
+            &larr; ポートフォリオに戻る｜Back to protfolio
           </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col gap-6 h-fit">
-            <h2 className="text-lg font-bold text-white border-b border-slate-800 pb-3">⚙️ 設定パネル</h2>
-            
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-slate-300">透かしテキスト ｜ Watermark Text</label>
-              <input 
-                type="text" 
-                value={watermarkText}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setWatermarkText(e.target.value)}
-                className="px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-indigo-500"
-              />
-              
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                <span className="text-[10px] text-slate-400 w-full mb-0.5">クイックプリセット:</span>
-                {presets.map((p: PresetItem, idx: number) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setWatermarkText(p.value)}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white text-xs font-medium transition-colors border border-slate-700"
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+          <ControlPanel
+            options={options}
+            onChangeOptions={handleOptionsChange}
+            onFileChange={handleFileChange}
+            onDownloadZip={handleDownloadZip}
+            isProcessing={isProcessing}
+            isZipping={isZipping}
+            imageCount={images.length}
+          />
 
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-slate-300">不透明度 ｜ Opacity: {Math.round(opacity * 100)}%</label>
-              <input 
-                type="range" min="0.1" max="1" step="0.05" value={opacity}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setOpacity(Number(e.target.value))}
-                className="accent-indigo-500 cursor-pointer"
-              />
-            </div>
-
-            <label className="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm cursor-pointer text-center shadow-lg shadow-indigo-500/20 transition-all">
-              {isProcessing ? "処理中..." : "📁 画像ファイルを選択"}
-              <input type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden"/>
-            </label>
-
-            {images.length > 0 && (
-              <button
-                onClick={handleDownloadZip}
-                disabled={isZipping}
-                className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50"
-              >
-                {isZipping ? "ZIP作成中..." : `📦 すべて一括ZIPダウンロード (${images.length}枚)`}
-              </button>
-            )}
-          </div>
-
-          <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl min-h-[450px]">
-            <h2 className="text-lg font-bold text-white mb-4">🖼️ プレビュー一覧 ｜ Preview ({images.length}件)</h2>
-            
-            {images.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-80 border-dashed border-2 border-slate-800 rounded-2xl text-slate-400 text-sm text-center p-6">
-                <p className="mb-2">まだ画像が追加されていません</p>
-                <span className="text-xs text-slate-500">
-                  左側のボタンからイラストを選択すると、自動でウォーターマークがプレビューされます。
-                </span>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {images.map((img: ProcessedImage) => (
-                  <div key={img.id} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md">
-                    <img src={img.previewSrc} alt={img.name} className="w-full h-full object-cover select-none" />
-                    
-                    {/* ホバー時に個別ダウンロードと「撤回（削除）」ボタンを表示 */}
-                    <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
-                      <a 
-                        href={img.previewSrc} 
-                        download={img.name} 
-                        className="w-full py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
-                      >
-                        個別ダウンロード
-                      </a>
-                      <button
-                        onClick={() => handleRemoveImage(img.id)}
-                        className="w-full py-1.5 bg-rose-600/80 hover:bg-rose-600 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
-                      >
-                        ✕ 選択を撤回
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
+          <PreviewGrid
+            images={images}
+            onRemove={handleRemoveImage}
+            onFileChange={handleFileChange}
+            isProcessing={isProcessing}
+          />
         </div>
       </div>
     </main>
