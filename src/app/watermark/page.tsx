@@ -34,6 +34,7 @@ export default function WatermarkStudioPage() {
     { label: "🛡️ AI Protected", value: "DO NOT AI SCRAPE" },
   ];
 
+  // 画像ファイルが選択されたときの処理（最新の watermarkText を確実に反映）
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     if (!e.target.files || e.target.files.length === 0) return;
     setIsProcessing(true);
@@ -41,13 +42,18 @@ export default function WatermarkStudioPage() {
     const filesArray: File[] = Array.from(e.target.files);
     const newImages: ProcessedImage[] = [];
 
-    // 現在の最新ステートをオプションに確実に反映
+    // この瞬間の最新 state をローカル変数にコピーして渡す
+    const currentText = watermarkText;
+    const currentOpacity = opacity;
+    const currentAngle = angle;
+    const currentFontSize = fontSize;
+
     const currentOptions: WatermarkOptions = { 
-      text: watermarkText, 
-      fontSize, 
+      text: currentText, 
+      fontSize: currentFontSize, 
       color: "#ffffff", 
-      opacity, 
-      angle 
+      opacity: currentOpacity, 
+      angle: currentAngle 
     };
 
     for (const file of filesArray) {
@@ -73,8 +79,20 @@ export default function WatermarkStudioPage() {
     setImages((prev: ProcessedImage[]) => [...prev, ...newImages]);
     setIsProcessing(false);
     
-    // インプットの値をリセットして、同じファイルを続けて選んだ時も発火するようにする
+    // 同じファイルを続けて選択できるようにinputをクリア
     e.target.value = "";
+  };
+
+  // 個別画像の撤回（削除）機能
+  const handleRemoveImage = (id: string) => {
+    setImages((prev: ProcessedImage[]) => {
+      const target = prev.find((img) => img.id === id);
+      if (target) {
+        URL.revokeObjectURL(target.originalSrc);
+        URL.revokeObjectURL(target.previewSrc);
+      }
+      return prev.filter((img) => img.id !== id);
+    });
   };
 
   const handleDownloadZip = async (): Promise<void> => {
@@ -186,10 +204,22 @@ export default function WatermarkStudioPage() {
                 {images.map((img: ProcessedImage) => (
                   <div key={img.id} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md">
                     <img src={img.previewSrc} alt={img.name} className="w-full h-full object-cover select-none" />
-                    <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2">
-                      <a href={img.previewSrc} download={img.name} className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded-lg font-medium shadow transition-transform hover:scale-105">
+                    
+                    {/* ホバー時に個別ダウンロードと「撤回（削除）」ボタンを表示 */}
+                    <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
+                      <a 
+                        href={img.previewSrc} 
+                        download={img.name} 
+                        className="w-full py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
+                      >
                         個別ダウンロード
                       </a>
+                      <button
+                        onClick={() => handleRemoveImage(img.id)}
+                        className="w-full py-1.5 bg-rose-600/80 hover:bg-rose-600 text-white text-xs rounded-lg font-medium text-center shadow transition-transform hover:scale-105"
+                      >
+                        ✕ 選択を撤回
+                      </button>
                     </div>
                   </div>
                 ))}
