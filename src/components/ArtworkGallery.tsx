@@ -11,6 +11,8 @@ export default function ArtworkGallery() {
     { id: "4", title: "Artwork 04", src: "/images/IMG_4567.jpg" },
     { id: "5", title: "Artwork 05", src: "/images/IMG_4618.jpg" },
     { id: "6", title: "Artwork 06", src: "/images/IMG_6335.jpg" },
+    { id: "7", title: "Artwork 07", src: "/images/IMG_6462.jpg" },
+    //continue..
   ];
 
   return (
