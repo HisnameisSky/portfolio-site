@@ -13,37 +13,42 @@ interface ProcessedImage {
   blob?: Blob;
 }
 
+interface PresetItem {
+  label: string;
+  value: string;
+}
+
 export default function WatermarkStudioPage() {
-  const [watermarkText, setWatermarkText] = useState("© YourName");
-  const [fontSize, setFontSize] = useState(32);
-  const [opacity, setOpacity] = useState(0.4);
-  const [angle, setAngle] = useState(-30);
+  const [watermarkText, setWatermarkText] = useState<string>("© YourName");
+  const [fontSize, setFontSize] = useState<number>(32);
+  const [opacity, setOpacity] = useState<number>(0.4);
+  const [angle, setAngle] = useState<number>(-30);
   
   const [images, setImages] = useState<ProcessedImage[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isZipping, setIsZipping] = useState(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isZipping, setIsZipping] = useState<boolean>(false);
 
-  const presets = [
+  const presets: PresetItem[] = [
     { label: "©️ Copyright", value: "© YourName" },
     { label: "🎨 Handle / ID", value: "@YourHandle" },
     { label: "🛡️ AI Protected", value: "DO NOT AI SCRAPE" },
   ];
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     if (!e.target.files || e.target.files.length === 0) return;
     setIsProcessing(true);
 
-    const filesArray = Array.from(e.target.files);
+    const filesArray: File[] = Array.from(e.target.files);
     const newImages: ProcessedImage[] = [];
 
     for (const file of filesArray) {
-      const originalSrc = URL.createObjectURL(file);
+      const originalSrc: string = URL.createObjectURL(file);
       const options: WatermarkOptions = { text: watermarkText, fontSize, color: "#ffffff", opacity, angle };
       
       try {
-        const previewSrc = await applyWatermark(originalSrc, options);
-        const res = await fetch(previewSrc);
-        const blob = await res.blob();
+        const previewSrc: string = await applyWatermark(originalSrc, options);
+        const res: Response = await fetch(previewSrc);
+        const blob: Blob = await res.blob();
 
         newImages.push({
           id: Math.random().toString(36).substring(2),
@@ -52,30 +57,30 @@ export default function WatermarkStudioPage() {
           previewSrc,
           blob,
         });
-      } catch (err) {
+      } catch (err: unknown) {
         console.error("Watermark apply error:", err);
       }
     }
 
-    setImages((prev) => [...prev, ...newImages]);
+    setImages((prev: ProcessedImage[]) => [...prev, ...newImages]);
     setIsProcessing(false);
   };
 
-  const handleDownloadZip = async () => {
+  const handleDownloadZip = async (): Promise<void> => {
     if (images.length === 0) return;
     setIsZipping(true);
 
     const zip = new JSZip();
-    images.forEach((img) => {
+    images.forEach((img: ProcessedImage) => {
       if (img.blob) {
         zip.file(img.name, img.blob);
       }
     });
 
-    const content = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(content);
+    const content: Blob = await zip.generateAsync({ type: "blob" });
+    const url: string = URL.createObjectURL(content);
     
-    const a = document.createElement("a");
+    const a: HTMLAnchorElement = document.createElement("a");
     a.href = url;
     a.download = "watermarked_assets.zip";
     a.click();
@@ -111,13 +116,13 @@ export default function WatermarkStudioPage() {
               <input 
                 type="text" 
                 value={watermarkText}
-                onChange={(e) => setWatermarkText(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setWatermarkText(e.target.value)}
                 className="px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-indigo-500"[cite: 11]
               />
               
               <div className="flex flex-wrap gap-1.5 mt-2">
                 <span className="text-[10px] text-slate-400 w-full mb-0.5">クイックプリセット:</span>
-                {presets.map((p, idx) => (
+                {presets.map((p: PresetItem, idx: number) => (
                   <button
                     key={idx}
                     type="button"
@@ -134,7 +139,7 @@ export default function WatermarkStudioPage() {
               <label className="text-xs font-semibold text-slate-300">不透明度 ｜ Opacity: {Math.round(opacity * 100)}%</label>
               <input 
                 type="range" min="0.1" max="1" step="0.05" value={opacity}
-                onChange={(e) => setOpacity(Number(e.target.value))}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setOpacity(Number(e.target.value))}
                 className="accent-indigo-500 cursor-pointer"[cite: 11]
               />
             </div>
@@ -167,7 +172,7 @@ export default function WatermarkStudioPage() {
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4"[cite: 11]>
-                {images.map((img) => (
+                {images.map((img: ProcessedImage) => (
                   <div key={img.id} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md"[cite: 11]>
                     <img src={img.previewSrc} alt={img.name} className="w-full h-full object-cover select-none"[cite: 11] />
                     <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2"[cite: 11]>
