@@ -38,11 +38,28 @@ export const applyWatermark = async (
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      // 3. 画面の中央にテキストを回転させて描画
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate(options.angle * (Math.PI / 180)); // 正しいAPI名に修正
-      ctx.fillText(options.text, 0, 0);
+      // 3. グリッド（斜め敷き詰め）によるAIスクレイピング対策強化
+      const angleRad = options.angle * (Math.PI / 180);
       
+      // 文字幅を大まかに計測して敷き詰めの間隔（パディング）を動的に決定
+      ctx.font = `${options.fontSize}px sans-serif`;
+      const textMetrics = ctx.measureText(options.text);
+      const textWidth = textMetrics.width || 200;
+      
+      const spacingX = Math.max(textWidth * 1.8, 300);
+      const spacingY = Math.max(options.fontSize * 4, 150);
+
+      // 画面全体を覆うように斜めグリッドでループ描画
+      for (let y = -canvas.height; y < canvas.height * 2; y += spacingY) {
+        for (let x = -canvas.width; x < canvas.width * 2; x += spacingX) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angleRad);
+          ctx.fillText(options.text, 0, 0);
+          ctx.restore();
+        }
+      }
+
       ctx.restore();
 
       // 4. WebP形式で出力
