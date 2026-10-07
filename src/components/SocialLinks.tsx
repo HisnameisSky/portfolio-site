@@ -8,38 +8,40 @@ export default function SocialLinks() {
         <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
           SNS & Platform Links
         </h3>
-        <p className="text-slate-400 text-sm mb-8">
+        <p className="text-slate-300 text-sm mb-8">
           各種プラットフォームでの作品公開やご支援はこちらからどうぞ。
+          <br />
+          View my work on various platforms and to show your support.
         </p>
 
-        {/* スマホでも縦並びまたは綺麗なフレックスで崩れないように調整 */}
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 w-full max-w-md">
+        {/* リンクの視認性を確保（白文字＋下線） */}
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-6 w-full max-w-lg">
             <SoundLink 
                 href="https://www.pixiv.net/users/3491142" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"            
-                >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
+            >
                 <span>Pixiv Portfolio</span>
-                <span className="text-indigo-400">↗</span>
+                <span className="text-indigo-300">↗</span>
             </SoundLink>
             
             <SoundLink 
                 href="https://hisnameissky.tumblr.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"            
-                >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
+            >
                 <span>Tumblr Portfolio</span>
-                <span className="text-indigo-400">↗</span>
+                <span className="text-indigo-300">↗</span>
             </SoundLink>
 
             <SoundLink 
                 href="https://ko-fi.com/hisnameisskyy/commissions/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"
-                >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"
+            >
                 <span>☕ Buy me a coffee / Ko-fi</span>
             </SoundLink>
         </div>

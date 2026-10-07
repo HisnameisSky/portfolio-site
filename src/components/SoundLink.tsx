@@ -1,29 +1,50 @@
 // src/components/SoundLink.tsx
 "use client";
 
-import { playSound } from "@/utils/sound";
-import React from "react";
+import Link, { LinkProps } from "next/link";
+import { AnchorHTMLAttributes } from "react";
+import { playClickSound, playHoverSound } from "@/utils/sound";
 
-interface SoundLinkProps {
-  href: string;
-  target?: string;
-  rel?: string;
-  className?: string;
+type SoundLinkProps = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: React.ReactNode;
-}
+  className?: string;
+};
 
-export default function SoundLink({ href, target, rel, className = "", children }: SoundLinkProps) {
+export default function SoundLink({ href, children, onClick, onMouseEnter, ...props }: SoundLinkProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    playClickSound(); // クリック時に音を鳴らす
+    if (onClick) onClick(e);
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    playHoverSound(); // ホバー時に極小の音を鳴らす
+    if (onMouseEnter) onMouseEnter(e);
+  };
+
+  // 内部リンクか外部リンクかで適切に振り分け
+  const isExternal = typeof href === 'string' && (href.startsWith('http') || href.startsWith('mailto:'));
+
+  if (isExternal) {
+    return (
+      <a 
+        href={href as string} 
+        onClick={handleClick} 
+        onMouseEnter={handleMouseEnter} 
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <a
-      href={href}
-      target={target}
-      rel={rel}
-      // text-slate-100 や text-indigo-300 をデフォルトで効かせ、背景に埋もれないようにする
-      className={`text-slate-100 hover:text-indigo-300 transition-colors ${className}`}
-      onMouseEnter={() => playSound("hover")}
-      onClick={() => playSound("click")}
+    <Link 
+      href={href} 
+      onClick={handleClick} 
+      onMouseEnter={handleMouseEnter} 
+      {...props}
     >
       {children}
-    </a>
+    </Link>
   );
 }
