@@ -38,14 +38,14 @@ export const applyWatermark = async (
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      // 3. 画面の中央（またはタイリング配置）にテキストを回転させて描画
+      // 3. 画面の中央にテキストを回転させて描画
       ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rots(options.angle * (Math.PI / 180));
+      ctx.rotate(options.angle * (Math.PI / 180)); // 正しいAPI名に修正
       ctx.fillText(options.text, 0, 0);
       
       ctx.restore();
 
-      // 4. WebP形式（またはPNG/JPEG）で出力
+      // 4. WebP形式で出力
       const dataUrl = canvas.toDataURL("image/webp", 0.92);
       resolve(dataUrl);
     };
