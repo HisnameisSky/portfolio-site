@@ -41,12 +41,20 @@ export default function WatermarkStudioPage() {
     const filesArray: File[] = Array.from(e.target.files);
     const newImages: ProcessedImage[] = [];
 
+    // 現在の最新ステートをオプションに確実に反映
+    const currentOptions: WatermarkOptions = { 
+      text: watermarkText, 
+      fontSize, 
+      color: "#ffffff", 
+      opacity, 
+      angle 
+    };
+
     for (const file of filesArray) {
       const originalSrc: string = URL.createObjectURL(file);
-      const options: WatermarkOptions = { text: watermarkText, fontSize, color: "#ffffff", opacity, angle };
       
       try {
-        const previewSrc: string = await applyWatermark(originalSrc, options);
+        const previewSrc: string = await applyWatermark(originalSrc, currentOptions);
         const res: Response = await fetch(previewSrc);
         const blob: Blob = await res.blob();
 
@@ -64,6 +72,9 @@ export default function WatermarkStudioPage() {
 
     setImages((prev: ProcessedImage[]) => [...prev, ...newImages]);
     setIsProcessing(false);
+    
+    // インプットの値をリセットして、同じファイルを続けて選んだ時も発火するようにする
+    e.target.value = "";
   };
 
   const handleDownloadZip = async (): Promise<void> => {
