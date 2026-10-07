@@ -42,10 +42,10 @@ const projects = [
     title: "AI Protection Pro (Desktop)",
     description: (
       <>
-        AIによるスクレイピングやプロンプトインジェクションからアセットを守るための保護スタジオアプリ。
+        AIによるスクレイピングからアセットを守るための保護スタジオアプリ。
         <br className="hidden sm:inline" />
         <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
-          A Protection Studio app designed to safeguard assets from AI-powered scraping and prompt injection.
+          A Protection Studio app designed to safeguard assets from AI-powered scraping.
         </span>
       </>
     ),
