@@ -6,6 +6,22 @@ import SoundLink from "@/components/SoundLink";
 
 const projects = [
   {
+    id: "watermark-studio",
+    title: "AI Asset Watermark Studio",
+    description: (
+      <>
+        ブラウザ上で安全にイラストへウォーターマークを焼き込み、一括保護するクライアントサイドツール。
+        <br className="hidden sm:inline" />
+        <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
+          Browser-based secure watermarking and asset protection studio.
+        </span>
+      </>
+    ),
+    tags: ["Next.js", "TypeScript", "Canvas API", "Tailwind CSS"],
+    link: "/watermark",
+    isInternal: true, // 内部リンク用のフラグ 
+  },
+  {
     id: "ai-protection-cloud",
     title: "AI Protection Pro Studio",
     description: (
@@ -17,23 +33,25 @@ const projects = [
         </span>
       </>
     ),
-    tags: ["Python","Streamlit",],
+    tags: ["Python", "Streamlit"],
     link: "https://ai-protection-studio.streamlit.app/",
+    isInternal: false,
   },
   {
     id: "ai-protection-desktop",
     title: "AI Protection Pro (Desktop)",
     description: (
       <>
-        AIによるスクレイピングやアセットを守るための保護スタジオアプリ。
+        AIによるスクレイピングやプロンプトインジェクションからアセットを守るための保護スタジオアプリ。
         <br className="hidden sm:inline" />
         <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
-          A Protection Studio app designed to safeguard assets from AI-powered scraping.
+          A Protection Studio app designed to safeguard assets from AI-powered scraping and prompt injection.
         </span>
       </>
     ),
-    tags: ["Python",],
+    tags: ["Python"],
     link: "https://github.com/HisnameisSky/ai-protection-pro-v7/",
+    isInternal: false,
   },
 ];
 
@@ -50,7 +68,7 @@ export default function AppShowcase() {
         Featured Projects
       </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -58,7 +76,7 @@ export default function AppShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col items-center text-center justify-between hover:border-slate-700 transition-all duration-300 w-full"
+            className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center justify-between hover:border-indigo-500/40 transition-all duration-300 w-full"
           >
             <div>
               <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
@@ -78,17 +96,29 @@ export default function AppShowcase() {
               </div>
 
               <div className="flex justify-center">
-                <SoundLink 
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-indigo-600 text-slate-100 hover:text-white text-sm font-medium border border-slate-700/80 transition-all duration-300 shadow-md group/link"
-                >
-                  <span>プロジェクトを見る ｜ Access project</span>
-                  <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1 text-indigo-400 group-hover/link:text-white">
-                    &rarr;
-                  </span>
-                </SoundLink>
+                {project.isInternal ? (
+                  <Link 
+                    href={project.link}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all duration-300 group/link"
+                  >
+                    <span>スタジオを開く ｜ Open Studio</span>
+                    <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">
+                      &rarr;
+                    </span>
+                  </Link>
+                ) : (
+                  <SoundLink 
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-indigo-600 text-slate-100 hover:text-white text-sm font-medium border border-slate-700/80 transition-all duration-300 shadow-md group/link"
+                  >
+                    <span>プロジェクトを見る ｜ Access project</span>
+                    <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1 text-indigo-400 group-hover/link:text-white">
+                      &rarr;
+                    </span>
+                  </SoundLink>
+                )}
               </div>
             </div>
           </motion.div>

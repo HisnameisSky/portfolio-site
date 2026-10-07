@@ -6,7 +6,6 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between relative">
         
-        {/* ロゴ / サイト名（確実にクリックできるよう z-20 を付与） */}
         <Link 
           href="/" 
           className="relative z-20 text-lg font-bold text-white tracking-wider hover:text-indigo-400 transition-colors py-2"
@@ -25,12 +24,15 @@ export default function Header() {
           <Link href="/#projects" className="hover:text-white transition-colors py-2">
             Projects
           </Link>
+          {/* ✨ ここにウォーターマークスタジオへのアクセスリンクを追加 */}
+          <Link href="/watermark" className="text-indigo-400 hover:text-indigo-300 transition-colors py-2 font-semibold">
+            🛡️ Watermark Studio
+          </Link>
           <Link href="/#contact" className="hover:text-white transition-colors py-2">
             Contact
           </Link>
         </nav>
 
-        {/* 右側のアクセントボタン */}
         <div className="flex items-center gap-4 relative z-20">
           <SoundLink 
             href="https://github.com/HisnameisSky" 
