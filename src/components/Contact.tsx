@@ -22,11 +22,11 @@ export default function Contact() {
         <div className="mb-8 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 w-full max-w-md shadow-inner">
           <p className="text-xs text-indigo-300 font-medium mb-1">E-Mail (English / 日本語)</p>
           <SoundLink 
-            href="mailto:HisnameisskyX@gmail.com" 
-            className="text-white font-mono text-sm sm:text-base hover:text-indigo-400 transition-colors underline decoration-indigo-500/50 underline-offset-4"
-          >
-            HisnameisskyX@gmail.com
-          </SoundLink>
+          href="mailto:HisnameisskyX@gmail.com" 
+          className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"
+        >
+          HisnameisskyX@gmail.com
+        </SoundLink>
         </div>
 
         {/* 事前にお知らせいただきたい3つの要素のボックス */}

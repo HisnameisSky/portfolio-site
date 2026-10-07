@@ -1,7 +1,7 @@
+// src/components/SoundLink.tsx
 "use client";
 
 import { playSound } from "@/utils/sound";
-import Link from "next/link";
 import React from "react";
 
 interface SoundLinkProps {
@@ -12,13 +12,14 @@ interface SoundLinkProps {
   children: React.ReactNode;
 }
 
-export default function SoundLink({ href, target, rel, className, children }: SoundLinkProps) {
+export default function SoundLink({ href, target, rel, className = "", children }: SoundLinkProps) {
   return (
     <a
       href={href}
       target={target}
       rel={rel}
-      className={className}
+      // text-slate-100 や text-indigo-300 をデフォルトで効かせ、背景に埋もれないようにする
+      className={`text-slate-100 hover:text-indigo-300 transition-colors ${className}`}
       onMouseEnter={() => playSound("hover")}
       onClick={() => playSound("click")}
     >

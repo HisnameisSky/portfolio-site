@@ -6,7 +6,7 @@ import SoundLink from "@/components/SoundLink";
 
 const projects = [
   {
-    id: "ai-protection",
+    id: "ai-protection-cloud",
     title: "AI Protection Pro Studio",
     description: (
       <>
@@ -17,8 +17,23 @@ const projects = [
         </span>
       </>
     ),
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "FastAPI", "Python", "Streamlit"],
+    tags: ["Python","Streamlit",],
     link: "https://ai-protection-studio.streamlit.app/",
+  },
+  {
+    id: "ai-protection-desktop",
+    title: "AI Protection Pro (Desktop)",
+    description: (
+      <>
+        AIによるスクレイピングやプロンプトインジェクションからアセットを守るための保護スタジオアプリ。
+        <br className="hidden sm:inline" />
+        <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
+          A Protection Studio app designed to safeguard assets from AI-powered scraping and prompt injection.
+        </span>
+      </>
+    ),
+    tags: ["Python",],
+    link: "https://github.com/HisnameisSky/ai-protection-pro-v7/",
   },
 ];
 
@@ -67,7 +82,7 @@ export default function AppShowcase() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-indigo-600 text-slate-200 hover:text-white text-sm font-medium border border-slate-700/80 transition-all duration-300 shadow-md group/link"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-indigo-600 text-slate-100 hover:text-white text-sm font-medium border border-slate-700/80 transition-all duration-300 shadow-md group/link"
                 >
                   <span>プロジェクトを見る ｜ Access project</span>
                   <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1 text-indigo-400 group-hover/link:text-white">

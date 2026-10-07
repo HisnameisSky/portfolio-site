@@ -18,8 +18,8 @@ export default function SocialLinks() {
                 href="https://www.pixiv.net/users/3491142" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-100 text-sm font-medium border border-slate-700 shadow-md transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
-            >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"            
+                >
                 <span>Pixiv Portfolio</span>
                 <span className="text-indigo-400">↗</span>
             </SoundLink>
@@ -28,18 +28,18 @@ export default function SocialLinks() {
                 href="https://hisnameissky.tumblr.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-100 text-sm font-medium border border-slate-700 shadow-md transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
-            >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"            
+                >
                 <span>Tumblr Portfolio</span>
                 <span className="text-indigo-400">↗</span>
             </SoundLink>
 
             <SoundLink 
-                href="https://ko-fi.com/c/2c104782f4" 
+                href="https://ko-fi.com/hisnameisskyy/commissions/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 border border-indigo-400/30 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
-            >
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-300 transition-colors underline decoration-indigo-400 underline-offset-4"
+                >
                 <span>☕ Buy me a coffee / Ko-fi</span>
             </SoundLink>
         </div>
