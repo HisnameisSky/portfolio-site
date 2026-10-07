@@ -98,7 +98,7 @@ export default function WatermarkStudioPage() {
               🛡️ AI Asset Watermark Studio
             </h1>
             <p className="text-slate-400 text-sm mt-1">
-              ブラウザ上だけで安全にイラストへウォーターマークを焼き込み、一括保護します[cite: 11]。
+              ブラウザ上だけで安全にイラストへウォーターマークを焼き込み、一括保護します。
             </p>
           </div>
           <Link href="/" className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sm font-medium transition-colors">
