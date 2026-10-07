@@ -14,6 +14,7 @@ export interface ProcessedImage {
 interface PreviewGridProps {
   images: ProcessedImage[];
   onRemove: (id: string) => void;
+  onClearAll: () => void;
   onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
   isProcessing: boolean;
 }
@@ -21,6 +22,7 @@ interface PreviewGridProps {
 export default function PreviewGrid({
   images,
   onRemove,
+  onClearAll,
   onFileChange,
   isProcessing,
 }: PreviewGridProps) {
@@ -31,11 +33,12 @@ export default function PreviewGrid({
           🖼️ プレビュー一覧 ｜ Preview ({images.length}件)
         </h2>
         {images.length > 0 && (
-          <span className="text-xs text-slate-400">
-            画像ごとに個別ダウンロードや撤回が可能です
-            <br />
-            You can download or remove each image individually.
-          </span>
+          <button
+            onClick={onClearAll}
+            className="text-xs text-rose-400 hover:text-rose-300 underline transition-colors"
+          >
+            すべてクリア
+          </button>
         )}
       </div>
       
@@ -48,10 +51,8 @@ export default function PreviewGrid({
               key={img.id} 
               className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-md flex flex-col"
             >
-              {/* プレビュー画像本体 */}
               <img src={img.previewSrc} alt={img.name} className="w-full h-full object-cover select-none" />
               
-              {/* 右上に常時配置する「撤回（削除）」ボタン */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -63,14 +64,13 @@ export default function PreviewGrid({
                 ✕
               </button>
 
-              {/* 下部に配置する個別ダウンロードボタン */}
               <div className="absolute bottom-2 inset-x-2">
                 <a 
                   href={img.previewSrc} 
                   download={img.name} 
                   className="block w-full py-1.5 bg-slate-900/90 hover:bg-indigo-600 text-slate-200 hover:text-white text-xs rounded-lg font-medium text-center shadow border border-slate-700 transition-colors"
                 >
-                  個別ダウンロード｜Individual Downloads
+                  個別ダウンロード｜Individual download
                 </a>
               </div>
             </div>

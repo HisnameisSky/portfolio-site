@@ -1,3 +1,5 @@
+//watermark/page.tsx
+
 "use client";
 
 import { useState, ChangeEvent, useEffect, useRef } from "react";
@@ -10,8 +12,8 @@ import PreviewGrid, { ProcessedImage } from "./components/PreviewGrid";
 export default function WatermarkStudioPage() {
   const [options, setOptions] = useState<WatermarkOptions>({
     text: "© YourName",
-    fontSize: 32,
-    color: "#ffffff",
+    fontSize: 32,      // ★ 初期フォントサイズ
+    color: "#ffffff",  // ★ 初期文字色（白）
     opacity: 0.4,
     angle: -30,
   });
@@ -20,10 +22,9 @@ export default function WatermarkStudioPage() {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isZipping, setIsZipping] = useState<boolean>(false);
 
-  // 元画像のデータを保持しておくための参照（再計算用）
   const rawFilesRef = useRef<{ id: string; file: File; originalSrc: string; name: string }[]>([]);
 
-  // 設定（テキストや不透明度）が変更されたら、既存の画像プレビューを自動で再計算して更新する
+  // 設定（フォントサイズやカラー、テキスト等）が変わると自動で再計算
   useEffect(() => {
     if (rawFilesRef.current.length === 0) return;
 
@@ -53,7 +54,6 @@ export default function WatermarkStudioPage() {
       setIsProcessing(false);
     };
 
-    // 軽いデボンスを効かせてカクつきを防ぐ
     const timer = setTimeout(() => {
       recomputeImages();
     }, 300);
@@ -77,7 +77,6 @@ export default function WatermarkStudioPage() {
       const originalSrc: string = URL.createObjectURL(file);
       const name = file.name.replace(/\.[^/.]+$/, "") + "_watermarked.webp";
 
-      // 内部参照用に保持
       rawFilesRef.current.push({ id, file, originalSrc, name });
 
       try {
@@ -102,7 +101,7 @@ export default function WatermarkStudioPage() {
     e.target.value = "";
   };
 
-  // 選択画像の撤回（削除）
+  // 個別削除
   const handleRemoveImage = (id: string) => {
     rawFilesRef.current = rawFilesRef.current.filter((item) => item.id !== id);
     setImages((prev: ProcessedImage[]) => {
@@ -114,6 +113,18 @@ export default function WatermarkStudioPage() {
       return prev.filter((img) => img.id !== id);
     });
   };
+
+  // ★ 一括削除（クリア）
+  const handleClearAll = () => {
+    // メモリリーク防止のためURLを解放
+    images.forEach((img) => {
+      URL.revokeObjectURL(img.originalSrc);
+      URL.revokeObjectURL(img.previewSrc);
+    });
+    rawFilesRef.current = [];
+    setImages([]);
+  };
+
 
   const handleDownloadZip = async (): Promise<void> => {
     if (images.length === 0) return;
@@ -153,7 +164,7 @@ export default function WatermarkStudioPage() {
             </p>
           </div>
           <Link href="/" className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sm font-medium transition-colors">
-            &larr; ポートフォリオに戻る｜Back to protfolio
+            &larr; ポートフォリオに戻る｜Return to portfolio
           </Link>
         </div>
 
@@ -163,6 +174,7 @@ export default function WatermarkStudioPage() {
             onChangeOptions={handleOptionsChange}
             onFileChange={handleFileChange}
             onDownloadZip={handleDownloadZip}
+            onClearAll={handleClearAll}
             isProcessing={isProcessing}
             isZipping={isZipping}
             imageCount={images.length}
@@ -171,6 +183,7 @@ export default function WatermarkStudioPage() {
           <PreviewGrid
             images={images}
             onRemove={handleRemoveImage}
+            onClearAll={handleClearAll}
             onFileChange={handleFileChange}
             isProcessing={isProcessing}
           />

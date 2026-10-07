@@ -13,6 +13,7 @@ interface ControlPanelProps {
   onChangeOptions: (newOpts: Partial<WatermarkOptions>) => void;
   onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onDownloadZip: () => void;
+  onClearAll: () => void; // ★ 一括削除用ハンドラー
   isProcessing: boolean;
   isZipping: boolean;
   imageCount: number;
@@ -23,6 +24,7 @@ export default function ControlPanel({
   onChangeOptions,
   onFileChange,
   onDownloadZip,
+  onClearAll,
   isProcessing,
   isZipping,
   imageCount,
@@ -62,6 +64,37 @@ export default function ControlPanel({
         </div>
       </div>
 
+      {/* ★ フォントサイズ スライダー */}
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-semibold text-slate-300">
+          フォントサイズ ｜ Font Size: {options.fontSize}px
+        </label>
+        <input 
+          type="range" min="16" max="72" step="2" value={options.fontSize}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeOptions({ fontSize: Number(e.target.value) })}
+          className="accent-indigo-500 cursor-pointer"
+        />
+      </div>
+
+      {/* ★ カスタムカラー選択 (カラーピッカー ＆ テキスト入力) */}
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-semibold text-slate-300">文字色 ｜ Watermark Color</label>
+        <div className="flex items-center gap-3">
+          <input 
+            type="color" 
+            value={options.color}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeOptions({ color: e.target.value })}
+            className="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer p-1"
+          />
+          <input 
+            type="text" 
+            value={options.color}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeOptions({ color: e.target.value })}
+            className="flex-1 px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm uppercase focus:outline-none focus:border-indigo-500"
+          />
+        </div>
+      </div>
+
       {/* 不透明度スライダー */}
       <div className="flex flex-col gap-2">
         <label className="text-xs font-semibold text-slate-300">
@@ -74,21 +107,30 @@ export default function ControlPanel({
         />
       </div>
 
-      {/* ファイル選択トリガー（DropZone等に渡すための窓口） */}
+      {/* ファイル選択トリガー */}
       <label className="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm cursor-pointer text-center shadow-lg shadow-indigo-500/20 transition-all">
         {isProcessing ? "処理中...｜processing..." : "📁 画像ファイルを選択｜Choose image"}
         <input type="file" accept="image/*" multiple onChange={onFileChange} className="hidden"/>
       </label>
 
-      {/* 一括ZIPダウンロード */}
+      {/* 一括ZIPダウンロード ＆ 一括削除 */}
       {imageCount > 0 && (
-        <button
-          onClick={onDownloadZip}
-          disabled={isZipping}
-          className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50"
-        >
-          {isZipping ? "ZIP作成中...｜Zipping..." : `📦 すべて一括ZIPダウンロード｜Bulk download (${imageCount}枚)`}
-        </button>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={onDownloadZip}
+            disabled={isZipping}
+            className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50"
+          >
+            {isZipping ? "ZIP作成中...｜Zipping..." : `📦 すべて一括ZIPダウンロード (${imageCount}枚)`}
+          </button>
+          
+          <button
+            onClick={onClearAll}
+            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-rose-600/80 text-slate-300 hover:text-white text-xs font-medium transition-colors border border-slate-700"
+          >
+            🗑️ すべての選択をクリア（一括削除）
+          </button>
+        </div>
       )}
     </div>
   );

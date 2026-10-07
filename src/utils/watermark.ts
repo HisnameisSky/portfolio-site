@@ -1,10 +1,10 @@
 // src/utils/watermark.ts
 export interface WatermarkOptions {
   text: string;
-  fontSize: number;
-  color: string;
+  fontSize: number; // フォントサイズ
+  color: string;    // カスタムカラー (例: "#ffffff" や "#ff0000" など)
   opacity: number;
-  angle: number; // 傾き（度数）
+  angle: number;
 }
 
 export const applyWatermark = async (
