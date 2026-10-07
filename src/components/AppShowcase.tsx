@@ -53,6 +53,23 @@ const projects = [
     link: "https://github.com/HisnameisSky/ai-protection-pro-v7/",
     isInternal: false,
   },
+  {
+    id: "todo-app",
+    title: "Todo App",
+    description: (
+      <>
+        フィルタリング・アニメーション・LocalStorage データ永続化に対応したインタラクティブな ToDo 管理アプリケーション。
+        <br className="hidden sm:inline" />
+        <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
+        This is an interactive to-do list application that supports filtering, animations, and data persistence using LocalStorage.
+        </span>
+      </>
+    ),
+    tags: ["TypeScript","Vercel"],
+    link: "https://ts-todo-app-snowy.vercel.app//",
+    isInternal: false,
+  },
+  //continue..
 ];
 
 export default function AppShowcase() {
