@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import SoundLink from "@/components/SoundLink";
-import SectionHeader from "@/components/SectionHeader"; // ← 追加
+import SectionHeader from "@/components/SectionHeader";
 
 const projects = [
   {
@@ -20,7 +20,7 @@ const projects = [
     ),
     tags: ["Next.js", "TypeScript", "Canvas API", "Tailwind CSS"],
     link: "/watermark",
-    isInternal: true, // 内部リンク用のフラグ 
+    isInternal: true,
   },
   {
     id: "ai-protection-cloud",
@@ -62,26 +62,26 @@ const projects = [
         フィルタリング・アニメーション・LocalStorage データ永続化に対応したインタラクティブな ToDo 管理アプリケーション。
         <br className="hidden sm:inline" />
         <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
-        This is an interactive to-do list application that supports filtering, animations, and data persistence using LocalStorage.
+          This is an interactive to-do list application that supports filtering, animations, and data persistence using LocalStorage.
         </span>
       </>
     ),
-    tags: ["TypeScript","Vercel"],
-    link: "https://ts-todo-app-snowy.vercel.app//",
+    tags: ["TypeScript", "Vercel"],
+    link: "https://ts-todo-app-snowy.vercel.app/",
     isInternal: false,
   },
-  //continue..
 ];
 
 export default function AppShowcase() {
   return (
-    <section id="projects" className="w-full max-w-6xl mx-auto px-4 py-12 flex flex-col items-center animate-fadeIn">
+    <section id="projects" className="w-full max-w-5xl mx-auto px-4 py-16 flex flex-col items-center animate-fadeIn">
       <SectionHeader 
         label="[ 02 ] Development // Projects"
         title="テクノロジーと表現の拡張"
       />
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+      {/* ✨ lg:grid-cols-3 から grid-cols-1 md:grid-cols-2 に変更して 2x2 の均等配置へ */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full mt-4">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -89,15 +89,15 @@ export default function AppShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center justify-between hover:border-indigo-500/40 transition-all duration-300 w-full"
+            className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between hover:border-indigo-500/40 transition-all duration-300 w-full"
           >
             <div>
-              <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-              <div className="text-slate-400 text-sm leading-relaxed mb-6">{project.description}</div>
+              <h3 className="text-xl font-bold text-white mb-3 text-center sm:text-left">{project.title}</h3>
+              <div className="text-slate-300 text-sm leading-relaxed mb-6 text-center sm:text-left">{project.description}</div>
             </div>
 
-            <div className="w-full">
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
+            <div className="w-full mt-auto">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-6">
                 {project.tags.map((tag, tagIndex) => (
                   <span 
                     key={tagIndex}
@@ -108,7 +108,7 @@ export default function AppShowcase() {
                 ))}
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center sm:justify-start">
                 {project.isInternal ? (
                   <Link 
                     href={project.link}
