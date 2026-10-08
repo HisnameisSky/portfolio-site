@@ -5,34 +5,34 @@ import AppShowcase from "@/components/AppShowcase";
 import SocialLinks from "@/components/SocialLinks"; 
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import DynamicBackground from "@/components/DynamicBackground"; 
+import { ChokaiBackgroundCanvas } from "@/components/ChokaiBackgroundCanvas"; 
 import LiveDemoBadge from "@/components/LiveDemoBadge"; 
 
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-slate-950 text-slate-100 overflow-hidden">
-      {/* 動的背景コンポーネント */}
-      <DynamicBackground />
+      {/* 水の波紋＆光粒子キャンバス背景 */}
+      <ChokaiBackgroundCanvas />
 
       <Header />
       <main className="relative z-10 flex min-h-screen flex-col items-center justify-between">
         <Hero />
 
-        <section id="artworks" className="w-full max-w-6xl px-6 py-16 animate-fadeIn">
-          <h2 className="text-2xl font-bold mb-8 text-white text-center">Artworks / Illustrations</h2>
+        {/* 1. Artwork Gallery */}
+        <section id="artworks" className="w-full max-w-6xl px-4 py-12 animate-fadeIn">
           <ArtworkGallery />
         </section>
 
-        <section id="projects" className="w-full max-w-6xl px-6 py-16 bg-slate-900/50 rounded-2xl my-8 border border-slate-800/80 backdrop-blur-sm animate-fadeIn">
-          <h2 className="text-2xl font-bold mb-8 text-white text-center">Development Projects</h2>
+        {/* 2. Development Projects */}
+        <section id="projects" className="w-full max-w-6xl px-4 py-12 animate-fadeIn">
+          <AppShowcase />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <AppShowcase />
-            {/* AI保護機能のライブデモウィジェットを配置 */}
-            <div className="flex flex-col items-center">
-              <p className="text-sm font-semibold text-indigo-300 mb-3">Live Demo: AI Protection Studio</p>
-              <LiveDemoBadge />
-            </div>
+          {/* AI Protection ライブデモウィジェット（独立カード表示） */}
+          <div className="mt-12 flex flex-col items-center justify-center p-8 bg-slate-900/60 rounded-3xl border border-slate-800/80 backdrop-blur-md">
+            <p className="text-xs font-mono text-cyan-400 mb-4 tracking-widest uppercase">
+              // Interactive Security Demo
+            </p>
+            <LiveDemoBadge />
           </div>
         </section>
 
