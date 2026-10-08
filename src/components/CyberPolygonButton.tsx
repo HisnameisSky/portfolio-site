@@ -47,7 +47,7 @@ export const CyberPolygonButton: React.FC<CyberButtonProps> = ({
   const glitchAnimation = {
     hover: {
       x: [0, -2, 2, -1, 1, 0],
-      transition: { duration: 0.2, ease: 'easeInOut' },
+      transition: { duration: 0.2, ease: "easeInOut" as const },
     },
   };
 
