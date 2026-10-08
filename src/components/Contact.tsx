@@ -39,7 +39,7 @@ export default function Contact() {
           </button>
 
           <SoundLink 
-            href="https://ko-fi.com/c/2c104782f4" 
+            href="https://ko-fi.com/hisnameisskyy/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-500/20 flex items-center gap-2"

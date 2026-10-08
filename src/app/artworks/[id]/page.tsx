@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ProtectedImage from "@/components/ProtectedImage"; // ✨ 先ほどの保護用パーツをインポート
+import ProtectedImage from "@/components/ProtectedImage"; 
 
 const artworks = [
   { id: 1, title: "星見雅＆月城柳", src: "/images/IMG_6406.jpg", description: "" },

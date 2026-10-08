@@ -6,7 +6,7 @@ import SocialLinks from "@/components/SocialLinks";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import DynamicBackground from "@/components/DynamicBackground"; 
-import LiveDemoBadge from "@/components/LiveDemoBadge"; // 修正: 正しいコンポーネント名をインポート
+import LiveDemoBadge from "@/components/LiveDemoBadge"; 
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
         </section>
 
         <section id="projects" className="w-full max-w-6xl px-6 py-16 bg-slate-900/50 rounded-2xl my-8 border border-slate-800/80 backdrop-blur-sm animate-fadeIn">
-          <h2 className="text-2xl font-bold mb-8 text-white text-center">Development Projects & Security</h2>
+          <h2 className="text-2xl font-bold mb-8 text-white text-center">Development Projects</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <AppShowcase />

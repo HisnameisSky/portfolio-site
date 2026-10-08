@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import React from "react";
 // 外部のマスターデータから正確にインポート
 import { artworks } from "@/data/artwork";
-import SectionHeader from "@/components/SectionHeader"; // ← 追加
+import SectionHeader from "@/components/SectionHeader"; 
 
 export default function ArtworkGallery() {
   return (
