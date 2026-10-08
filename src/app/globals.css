@@ -86,3 +86,20 @@ img {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* Next.js Font (Google Fonts) と組み合わせる推奨クラス */
+@layer utilities {
+  /* タイトルの日英混植スタイル */
+  .font-chokai-title {
+    font-family: var(--font-shippori-mincho), 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.12em;
+    font-feature-settings: "palt" 1;
+  }
+
+  /* サブタイトル・英字ラベルスタイル */
+  .font-cyber-label {
+    font-family: var(--font-plus-jakarta), var(--font-jetbrains-mono), sans-serif;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+}

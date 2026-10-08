@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import SoundLink from "@/components/SoundLink";
+import SectionHeader from "@/components/SectionHeader"; // ← 追加
 
 const projects = [
   {
@@ -75,17 +76,12 @@ const projects = [
 export default function AppShowcase() {
   return (
     <section id="projects" className="w-full max-w-6xl mx-auto px-4 py-12 flex flex-col items-center animate-fadeIn">
-      <motion.h2 
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-2xl sm:text-3xl font-bold text-white mb-8 tracking-tight text-center"
-      >
-        Featured Projects
-      </motion.h2>
+      <SectionHeader 
+        label="[ 02 ] Development // Projects"
+        title="テクノロジーと表現の拡張"
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}

@@ -1,4 +1,5 @@
 import SoundLink from "@/components/SoundLink";
+import SectionHeader from "@/components/SectionHeader"; // ← 追加
 
 export default function Contact() {
   return (
@@ -9,10 +10,12 @@ export default function Contact() {
         <div className="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none transition-all duration-500 group-hover:bg-indigo-500/25" />
         <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/15 rounded-full blur-3xl pointer-events-none transition-all duration-500 group-hover:bg-purple-500/25" />
 
-        {/* セクションタイトル（透明化せず、はっきりした白文字に変更） */}
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
-          連絡 ｜ Contact
-        </h2>
+        {/* ✨ 既存の <h2> タグと差し替え */}
+        <SectionHeader 
+          label="[ 03 ] Connect // Inquiries" 
+          title="創作と開発のご相談・お問い合わせ" 
+        />
+
         <p className="text-slate-300 text-sm sm:text-base max-w-xl mb-8 leading-relaxed">
           ご質問、お問い合わせ、リクエストに際して、電子メールまたは各種プラットフォームよりご連絡ください。
           <br/>If you have any questions, inquiries, or requests, please contact me via email or through one other platforms.

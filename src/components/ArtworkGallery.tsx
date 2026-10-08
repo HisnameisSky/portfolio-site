@@ -5,10 +5,17 @@ import { motion } from "framer-motion";
 import React from "react";
 // 外部のマスターデータから正確にインポート
 import { artworks } from "@/data/artwork";
+import SectionHeader from "@/components/SectionHeader"; // ← 追加
 
 export default function ArtworkGallery() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
+      {/* ✨ 正しい配置位置 */}
+      <SectionHeader 
+        label="[ 01 ] Portfolio // Works" 
+        title="澄み渡る世界と、デジタル領域の境界" 
+      />
+
       {/* SNS風（Pinterest風）のマルチカラムレイアウト */}
       <div className="w-full columns-1 sm:columns-2 md:columns-3 gap-6 [column-fill:_balance]">
         {artworks.map((art, index) => (
