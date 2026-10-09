@@ -21,7 +21,7 @@
 
 ## 🛠️ Tech Stack (使用技術)
 
-- **Framework:** Next.js (App Router, Turbopack)
+- **Framework:** Next.js (App Router, Static Export)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Animation:** Framer Motion
