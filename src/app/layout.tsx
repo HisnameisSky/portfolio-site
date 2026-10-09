@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "澄界 ｜ Hisnameissky",
     images: [
       {
-        url: "/images/IMG_6504.jpg",
+        url: "/images/IMG_6504.webp",
         width: 1200,
         height: 630,
         alt: "澄界 Portfolio Preview",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "澄界 ｜ Hisnameissky",
     description: "心惹かれるイラストレーションの世界と、モダンなWebテクノロジーが融合する場所。",
-    images: ["/images/IMG_6504.jpg"],
+    images: ["/images/IMG_6504.webp"],
   },
 };
 
