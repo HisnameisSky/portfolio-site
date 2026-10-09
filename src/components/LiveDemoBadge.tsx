@@ -41,7 +41,7 @@ export default function LiveDemoBadge() {
       {/* プレビュー画像エリア */}
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner">
         <img
-          src="/images/IMG_6406.jpg" 
+          src="/images/IMG_6406.webp" 
           alt="Preview"
           // プロテクト有効時は、コントラストや色味をわずかに変化させつつ、デジタルノイズ風のフィルター感を演出
           className={`w-full h-full object-cover select-none transition-all duration-300 ${
