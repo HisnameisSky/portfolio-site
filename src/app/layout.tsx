@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "澄界 ｜ Hisnameissky",
     description: "心惹かれるイラストレーションの世界と、モダンなWebテクノロジーが融合する場所。",
-    url: "https://hisnameissky.vercel.app/",
+    url: "https://hisnameissky.pages.dev/", // <== PagesのデフォルトURLまたは独自のカスタムドメイン
     siteName: "澄界 ｜ Hisnameissky",
     images: [
       {

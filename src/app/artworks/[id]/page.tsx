@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ProtectedImage from "@/components/ProtectedImage"; 
 
+// 作品データ定義
 const artworks = [
   { id: 1, title: "星見雅＆月城柳", src: "/images/IMG_6406.webp", description: "" },
   { id: 2, title: "レミエール・ダン", src: "/images/IMG_6504.webp", description: "" },
@@ -28,9 +29,17 @@ const artworks = [
   { id: 24, title: "砂狼シロコテラー", src: "/images/IMG_6309.webp", description: "" },
   { id: 25, title: "高垣楓", src: "/images/IMG_6276.webp", description: "" },
   { id: 26, title: "月城柳", src: "/images/IMG_5828.webp", description: "" },
-
-  //..continue....
 ];
+
+// ✨ 1. ビルド時に静的生成する全パラメータ（id）の一覧を返却
+export async function generateStaticParams() {
+  return artworks.map((art) => ({
+    id: art.id.toString(), // URLパラメータ用に文字列へ変換
+  }));
+}
+
+// ✨ 2. 静的エクスポート（output: 'export'）用に動的生成を無効化
+export const dynamicParams = false;
 
 export default async function ArtworkDetailPage({ 
   params 

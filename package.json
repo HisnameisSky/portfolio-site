@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "preview": "npx wrangler pages dev out"
   },
   "dependencies": {
     "framer-motion": "^14.0.0",
