@@ -2,7 +2,7 @@
 
 心惹かれるイラストレーションの世界と、モダンなWebテクノロジーが融合するインタラクティブなポートフォリオサイトです。
 
-🌐 **Live Demo:** [https://hisnameissky.vercel.app/](https://hisnameissky.vercel.app/)
+🌐 **Live Demo:** [https://hisnameissky.pages.dev/](https://hisnameissky.pages.dev/)
 
 ---
 
@@ -25,7 +25,7 @@
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Animation:** Framer Motion
-- **Deployment:** Vercel
+- **Deployment:** Cloudflare Pages
 
 ---
 
