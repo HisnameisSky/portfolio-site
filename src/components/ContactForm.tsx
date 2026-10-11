@@ -19,7 +19,7 @@ export const ContactForm: React.FC = () => {
       `-----------------------------------\n` +
       `送信元: 澄界 - Hisnameissky Portfolio Contact`
     );
-    return `mailto:HisnameisskyX@gmail.com?subject=${subject}&body=${body}`;
+    return `mailto:Hisnameissky+X@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (

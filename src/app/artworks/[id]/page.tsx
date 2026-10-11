@@ -29,6 +29,8 @@ const artworks = [
   { id: 24, title: "砂狼シロコテラー", src: "/images/IMG_6309.webp", description: "" },
   { id: 25, title: "高垣楓", src: "/images/IMG_6276.webp", description: "" },
   { id: 26, title: "月城柳", src: "/images/IMG_5828.webp", description: "" },
+  { id: 27, title: "砂狼シロコテラー", src: "/images/IMG_6567.webp", description: "" },
+
 ];
 
 // ✨ 1. ビルド時に静的生成する全パラメータ（id）の一覧を返却
