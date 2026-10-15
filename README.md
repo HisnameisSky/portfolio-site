@@ -21,11 +21,11 @@
 
 ## 🛠️ Tech Stack (使用技術)
 
-- **Framework:** Next.js (App Router, Turbopack)
+- **Framework:** Next.js (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Animation:** Framer Motion
-- **Deployment:** Vercel
+- **Deployment:** CloudFlare Pages
 
 ---
 
