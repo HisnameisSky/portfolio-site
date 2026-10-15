@@ -22,7 +22,7 @@ export default function SocialLinks() {
                 rel="noopener noreferrer"
                 className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
             >
-                <span>Pixiv Portfolio</span>
+                <span>Pixiv</span>
                 <span className="text-indigo-300">↗</span>
             </SoundLink>
             
@@ -32,12 +32,32 @@ export default function SocialLinks() {
                 rel="noopener noreferrer"
                 className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
             >
-                <span>Tumblr Portfolio</span>
+                <span>Tumblr</span>
                 <span className="text-indigo-300">↗</span>
             </SoundLink>
 
             <SoundLink 
-                href="https://ko-fi.com/hisnameisskyy/commissions/" 
+                href="https://hisnameissky.bsky.social/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
+            >
+                <span>BlueSky</span>
+                <span className="text-indigo-300">↗</span>
+            </SoundLink>
+
+            <SoundLink 
+                href="https://x.com/HisnameisSky/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
+            >
+                <span>Twitter/X</span>
+                <span className="text-indigo-300">↗</span>
+            </SoundLink>
+
+            <SoundLink 
+                href="https://ko-fi.com/hisnameisskyy/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"

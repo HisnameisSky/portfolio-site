@@ -26,6 +26,6 @@ export const artworks = [
   { id: 25, title: "高垣楓", src: "/images/IMG_6276.webp", description: "" },
   { id: 26, title: "月城柳", src: "/images/IMG_5828.webp", description: "" },
   { id: 27, title: "砂狼シロコテラー", src: "/images/IMG_6567.webp", description: "" },
-
-  //..continue....
+  { id: 28, title: "エウルア", src: "/images/IMG_6585.webp", description: "" },
+//.....
 ];
