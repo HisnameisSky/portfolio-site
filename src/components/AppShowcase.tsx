@@ -27,10 +27,10 @@ const projects = [
     title: "AI Protection Pro Studio (Web)",
     description: (
       <>
-        AIによるスクレイピングやプロンプトインジェクションからアセットを守るための保護スタジオアプリ。
+        イラストレーターの生存戦略に直結する、AIスクレイピング/敵対的攻撃への防衛ロジック（水密ウォーターマーク・暗号化）を独自実装した自社SaaSのモックアップからデプロイまでを単独完結
         <br className="hidden sm:inline" />
         <span className="text-slate-400 text-xs sm:text-sm mt-1 block">
-          A Protection Studio app designed to safeguard assets from AI-powered scraping and prompt injection.
+        A fully self-contained process—from mockup to deployment—of our proprietary SaaS, which incorporates defense mechanisms (watermarking and encryption) against AI scraping and malicious attacks that are directly tied to illustrators’ survival strategies.
         </span>
       </>
     ),
