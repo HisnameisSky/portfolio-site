@@ -27,5 +27,7 @@ export const artworks = [
   { id: 26, title: "月城柳", src: "/images/IMG_5828.webp", description: "" },
   { id: 27, title: "砂狼シロコテラー", src: "/images/IMG_6567.webp", description: "" },
   { id: 28, title: "エウルア", src: "/images/IMG_6585.webp", description: "" },
-//.....
+  { id: 29, title: "レミエール・ダン＆砂狼シロコテラー", src: "/images/IMG_6607.webp", description: "" },
+  { id: 30, title: "レミエール・ダン", src: "/images/IMG_6629.webp", description: "" },
+//.....  { id: ?, title: "", src: "/images/?.webp", description: "" },
 ];
