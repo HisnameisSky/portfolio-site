@@ -46,6 +46,15 @@ export default function Contact() {
           >
             <span>✨ Ko-fi でリクエスト・依頼する</span>
           </SoundLink>
+
+          <SoundLink 
+            href="https://www.pixiv.net/users/3491142/request/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-500/20 flex items-center gap-2"
+          >
+            <span>✨ Pixiv でリクエスト・依頼する</span>
+          </SoundLink>
         </div>
 
         {/* ✨ ボタン押下時に ContactForm を展開 */}
