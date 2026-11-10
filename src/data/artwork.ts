@@ -30,6 +30,7 @@ export const artworks = [
   { id: 29, title: "レミエール・ダン＆砂狼シロコテラー", src: "/images/IMG_6607.webp", description: "" },
   { id: 30, title: "レミエール・ダン", src: "/images/IMG_6629.webp", description: "" },
   { id: 31, title: "レミエール・ダン", src: "/images/IMG_6657.webp", description: "" },
+  { id: 32, title: "ブルーロータス｜花騎士", src: "/images/IMG_6707.webp", description: "" },
 
 //.....  { id: ?, title: "", src: "/images/?.webp", description: "" },
 ];
