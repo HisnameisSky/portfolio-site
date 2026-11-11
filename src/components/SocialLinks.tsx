@@ -25,16 +25,6 @@ export default function SocialLinks() {
                 <span>Pixiv</span>
                 <span className="text-indigo-300">↗</span>
             </SoundLink>
-            
-            <SoundLink 
-                href="https://hisnameissky.tumblr.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white font-mono text-sm sm:text-base hover:text-indigo-200 transition-colors underline decoration-white underline-offset-4 font-semibold flex items-center justify-center gap-1.5"            
-            >
-                <span>Tumblr</span>
-                <span className="text-indigo-300">↗</span>
-            </SoundLink>
 
             <SoundLink 
                 href="https://hisnameissky.bsky.social/" 
