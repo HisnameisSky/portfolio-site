@@ -31,6 +31,7 @@ export const artworks = [
   { id: 30, title: "レミエール・ダン", src: "/images/IMG_6629.webp", description: "" },
   { id: 31, title: "レミエール・ダン", src: "/images/IMG_6657.webp", description: "" },
   { id: 32, title: "ブルーロータス｜花騎士", src: "/images/IMG_6707.webp", description: "" },
+  { id: 33, title: "杏山カズサ", src: "/images/IMG_6683.webp", description: "" },
 
 //.....  { id: ?, title: "", src: "/images/?.webp", description: "" },
 ];
